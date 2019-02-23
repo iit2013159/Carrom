@@ -9,6 +9,7 @@ public class CarromBoard implements Comparable<CarromBoard> {
 	private int redCoin;
 	private final int striker = 5;
 	private int[] pockets ;
+	private int win = 0;
 	private CarromBoard(int blackCoin,int redCoin,int pockets) {
 		this.blackCoin =blackCoin;
 		this.redCoin = redCoin;
@@ -108,7 +109,9 @@ public class CarromBoard implements Comparable<CarromBoard> {
 	
 	public int decrementBlack() {
 		this.blackCoin--;
+		//checkWin();
 		return this.blackCoin;
+		
 	}
 	
 	public int incrementBlack() {
@@ -118,7 +121,19 @@ public class CarromBoard implements Comparable<CarromBoard> {
 	
 	public int decrementRed() {
 		this.redCoin--;
+		//checkWin();
 		return this.redCoin;
+	}
+	public void checkWin() {
+		if(blackCoin == 0 && redCoin == 0) {
+			throw  new IllegalStateException("Game is finished");
+		}
+	}
+
+
+	@Override
+	public String toString() {
+		return "CarromBoard [blackCoin=" + blackCoin + ", redCoin=" + redCoin + "]";
 	}
 	
 }

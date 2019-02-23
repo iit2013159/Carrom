@@ -8,7 +8,7 @@ import CleanStrike.carrom.Player.Builder;
 public class Player implements Comparable<Player> {
 	private int points;
 	private int foul;
-	private String name;
+	final private String name;
 	
 	private Player(int points,String name,int foul) {
 		this.name = name;
@@ -31,7 +31,7 @@ public class Player implements Comparable<Player> {
 		this.foul++;
 		if(foul == 3) {
 			this.points =this.points -2 ;
-			this.foul = 0;
+			resetFoul();
 		}
 		return this.foul;
 	}
@@ -50,9 +50,7 @@ public class Player implements Comparable<Player> {
 	public String getName() {
 		return name;
 	}
-	public void setName(String name) {
-		this.name = name;
-	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if(obj == this) {return true;}
@@ -63,7 +61,6 @@ public class Player implements Comparable<Player> {
 		return false;
 	}
 	private static final Comparator<Player> COMPARATOR = Comparator.comparingInt((Player c) -> c.points)
-			.thenComparing(c -> c.name)
 			.thenComparingInt(c -> c.foul);
 	@Override
 	public int compareTo(Player o) {
@@ -103,5 +100,11 @@ public class Player implements Comparable<Player> {
 			return new Player(point,name,0);
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "Player [points=" + points + ", foul=" + foul + ", name=" + name + "]";
+	}
+	
 	
 }

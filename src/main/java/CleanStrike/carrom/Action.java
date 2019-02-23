@@ -9,12 +9,16 @@ public enum Action {
 	REDSTRIKE(ActionHelper::redStrike),
 	STRIKERSTRIKE(ActionHelper::strikerStrike),
 	DEFUNCTCOIN(ActionHelper::defunction),
-	NONE(ActionHelper::strike);
+	NONE(ActionHelper::none);
 	
 	private final BinaryOperator<Object> operator;
 	
 	Action(BinaryOperator<Object> operator){
 		this.operator =operator;
+	}
+
+	public BinaryOperator<Object> getOperator() {
+		return operator;
 	}
 	
 }
