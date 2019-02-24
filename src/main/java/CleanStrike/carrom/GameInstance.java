@@ -9,6 +9,14 @@ public interface GameInstance {
 	int getRandomResponse();
 
 	void startGame();
-	String getResult();
+	
+	void setInput();
+	void setInput(int[] ar);
+	Thread getResult();
+	String getFinalResult();
+	String getScore();
+	void setRandomInput();
+	
+	void setKeyBoardInput();
 
 }

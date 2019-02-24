@@ -4,64 +4,40 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
+import CleanStrike.carrom.input.Input;
+import CleanStrike.carrom.input.InputHandler;
+import CleanStrike.carrom.input.KeyBoardArrayInput;
+import CleanStrike.carrom.model.CarromBoard;
+import CleanStrike.carrom.model.Player;
+
 /**
- * Hello world!
+ * It can be played by multi people.
+ * Simultaneously many games can be programmed.
+ * This carrom has three mode of input. You can choose either
+ * a)get input from keyboard one by one
+ * b)pass all input collectively
+ * c)get random input
  *
  */
-public class App 
-{
-    public static void main( String[] args )
-    {
-        CarromBoard board = CarromBoard.CarromBuilder.of(9, 1).ofPockets(4).build();
-        Player p1 = Player.Builder.of().ofName("Abhishek").build();
-        Player p2 = Player.Builder.of().ofName("Sahaj").build();
-        Player p3 = Player.Builder.of().ofName("robo").build();        
-        GameInstance game = new GamePlay( new Player[] {p1,p2,p3}, board);
-       game.startGame();
-       game.getResult();
-        System.exit(0);
-        try {
-        	boolean turn = false;
-        	Player currPlayer;
-        	while(true) {
-        		if(!turn) {
-        			currPlayer = p1;
-        		}else {
-        			currPlayer = p2;
-        		}
-        		System.out.println(currPlayer.getName() +" : Choose an outcome from the list below");
-        		System.out.println("1. Strike");
-        		System.out.println("2. MultiStrike");
-        		System.out.println("3. Red Strike");
-        		System.out.println("4. Striker strike");
-        		System.out.println("5. Defunct Coin");
-        		System.out.println("6. None");
-        		/*Scanner input =  new Scanner(System.in);
-        		int inp = input.nextInt();   */
-        		int inp = ThreadLocalRandom.current().nextInt(1, 7);
-        		System.out.println("input is " + inp);
-        		int res = (int) Action.values()[inp-1].getOperator().apply(board, currPlayer);
-        		turn = !turn;
-            	System.out.println("Returned value is  " + res + " Score is " +p1.getPoints() + "-" +p2.getPoints() +" carrom " + board + p1 + p2);
-        	}
-        	
-        	
-        }catch(IllegalStateException e) {
-        	if(Math.abs(p1.getPoints() - p2.getPoints()) >= 3 ) {
-        		if(p1.getPoints() >= 5) {
-        			System.out.println(p1.getName() +" wins");
-        		}
-        		else if(p2.getPoints() >= 5) {
-        			System.out.println(p2.getPoints() +" wins");
-        		}
-        		else {
-        			System.out.println(" game is drawn ");
-        		}
-        	}else {
-    			System.out.println(" game is drawn ");
-    		}
-        	System.out.println("Final Score " + p1.getPoints() +"-" +p2.getPoints());
-        }
-                
-    }
+public class App {
+	public static void main(String[] args) throws InterruptedException {
+		CarromBoard board = CarromBoard.CarromBuilder.of(9, 1).ofPockets(4).build();
+		Player p1 = Player.Builder.of().ofName("Abhishek").build();
+		Player p2 = Player.Builder.of().ofName("Sahaj").build();
+		// Player p3 = Player.Builder.of().ofName("robo").build();
+		//System.out.println("Hello");
+		//for (int i = 0; i < 10; i++) {
+			GameInstance game = new GamePlay(new Player[] { p1, p2 }, board);
+			//game.setInput(new int[] {1,6,4,4,1,1,1,6,3,6,1,5,2,3,2,1});
+			//game.setInput();
+			//game.setRandomInput();
+			game.setKeyBoardInput();
+			game.startGame();			
+			//game.startGame();
+			System.out.println(game.getFinalResult());
+		//}
+		
+		
+		
+	}
 }
